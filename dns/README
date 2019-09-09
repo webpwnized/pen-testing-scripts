@@ -1,0 +1,2 @@
+#Example: place IP addresses in file for get-hostnames-from-ips.sh
+for i in $(seq 1 254); do echo 10.10.10.$i >> ips.txt; done
