@@ -35,7 +35,6 @@ done
 shift $(($OPTIND - 1))
 INPUT_FILE=$1
 
-input_file="$1"
 while IFS='' read -r line || [[ -n "$line" ]]; do
     host "$line" | grep "has address" | sed 's/ has address /:/' &
 done < $INPUT_FILE
