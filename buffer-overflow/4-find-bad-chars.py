@@ -4,15 +4,15 @@ import socket, time, sys
 # NOTE: This template used https://www.exploit-db.com/exploits/1582 as the example
 # IMPORTANT: Dont forget to set up l_bytes
 
-# Phase 3: Confirm the offset of EIP at the time of the controlled crash
+# Phase 4: Find bad chars
 
 # ------------------------------------------------------------------
-# How do we confirm the offset?
+# How do we find bad chars?
 # ------------------------------------------------------------------
-# We build a payload made of characters A, B and C. If we have the offset
-# correct, "A" will fill the space up to EIP, "B" will overwrite EIP exactly
-# and "C" will fill the space after EIP. After this script completes, EIP
-# should contain "BBBB" aka "41414141" (hex)
+# We send all character bytes from 00-FF. If any of the bytes prevent
+# EIP from being controlled or "vanish" when the buffer is examined,
+# these characters cannot be used in shellcode. We keep track of these
+# bad chars and tell the shellcode generator so it wont use them
 
 if len(sys.argv) != 6:
     print()
