@@ -75,14 +75,11 @@ echo "Scanning ${IP_ADDRESS}"
 echo ""
 
 echo "Running the following nmap command..."
-echo "nmap -Pn -sS -sV -sC -vv --reason --open -p- ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-tcp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS"
+echo "nmap -Pn -O -sS -sV -sC -vv --reason --open -p- ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-tcp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS"
 
-nmap -Pn -sS -sV -sC -vv --reason --open -p- ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-tcp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS
+nmap -Pn -O -sS -sV -sC -vv --reason --open -p- ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-tcp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS
 
 echo "Running the following nmap command..."
-echo "nmap -Pn -sU -sV -sC -vv --reason --open ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-udp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS"
+echo "nmap -Pn -O -sU -sV -sC -vv --reason --open ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-udp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS"
 
-nmap -Pn -sU -sV -sC -vv --reason --open ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-udp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS
-
-
-
+nmap -Pn -O -sU -sV -sC -vv --reason --open ${ADDITIONAL_OPTIONS} -oA $OUTPUT_FILE_PATH/full-udp-scan-$PROJECT_NAME-$(date +'%Y-%m-%d-%H-%M') --stylesheet=nmap.xsl $IP_ADDRESS
