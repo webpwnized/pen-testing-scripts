@@ -35,5 +35,13 @@ done
 shift $(($OPTIND - 1))
 DOMAIN=$1
 
+echo "------------"
+echo "Name Servers"
+echo "------------"
+host -t ns $DOMAIN | cut -d" " -f4
+echo
+echo "-------------"
+echo "Zone Transfer"
+echo "-------------"
 for ns in $(host -t ns $DOMAIN | cut -d" " -f4);do host -l $DOMAIN $ns | grep "has address" | cut -d" " -f1,4; done
-
+echo
