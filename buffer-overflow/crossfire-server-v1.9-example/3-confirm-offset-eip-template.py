@@ -12,7 +12,7 @@ import socket, time, sys
 # We build a payload made of characters A, B and C. If we have the offset
 # correct, "A" will fill the space up to EIP, "B" will overwrite EIP exactly
 # and "C" will fill the space after EIP. After this script completes, EIP
-# should contain "BBBB" aka "41414141" (hex)
+# should contain "BBBB" aka "42424242" (hex)
 
 if len(sys.argv) != 5:
     print()
