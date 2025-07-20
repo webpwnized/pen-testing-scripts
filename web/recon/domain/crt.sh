@@ -4,7 +4,7 @@
 # Pulls subdomains from Certificate Transparency logs using crt.sh
 # Usage: ./crt.sh [options] <domain>
 
-source "$(dirname "$0")/common.sh"
+source "$(dirname "$0")/../common/common.sh"
 
 check_dependencies curl jq
 parse_args "$@"

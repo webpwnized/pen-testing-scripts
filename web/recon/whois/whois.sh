@@ -4,7 +4,7 @@
 # Simple: Only outputs non-empty name-value pairs from WHOIS
 # Usage: ./whois.sh [options] <domain>
 
-source "$(dirname "$0")/common.sh"
+source "$(dirname "$0")/../common/common.sh"
 
 check_dependencies whois timeout
 parse_args "$@"
