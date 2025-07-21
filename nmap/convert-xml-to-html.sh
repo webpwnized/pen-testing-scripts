@@ -8,14 +8,16 @@ print_usage() {
     echo "Usage: $0 <nmap-xml-file>"
     echo "Converts Nmap XML output to HTML using xsltproc and nmap.xsl."
     echo
+    echo "Options:"
+    echo "  -h, --help    Show this help message"
+    echo
     echo "Example:"
     echo "  $0 tcp-scan.xml"
     exit 1
 }
 
-# Check for required input
-if [[ $# -ne 1 ]]; then
-    echo "[-] Error: Missing required Nmap XML file."
+# Help flag support
+if [[ $# -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then
     print_usage
 fi
 

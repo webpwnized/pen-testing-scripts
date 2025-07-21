@@ -1,6 +1,6 @@
 #!/bin/bash
 # parse-ports.sh
-# Extracts open TCP ports from an Nmap .gnmap file and outputs as a comma-separated list.
+# Extracts open TCP ports from an Nmap .gnmap file and outputs a clean comma-separated list.
 
 set -euo pipefail
 
@@ -10,7 +10,7 @@ Usage: $(basename "$0") <file.gnmap>
 
 Description:
   Extracts all unique open TCP ports from the specified Nmap grepable output (.gnmap)
-  and returns them as a comma-separated list.
+  and returns them as a comma-separated list without any spaces.
 
 Arguments:
   file.gnmap       Path to the Nmap grepable output file.
@@ -33,7 +33,7 @@ if [[ ! -f "$GNMAP_FILE" ]]; then
     exit 1
 fi
 
-# Extract open ports and format as comma-separated list
+# Extract open TCP ports and format as comma-separated list with no whitespace
 grep "Ports:" "$GNMAP_FILE" \
     | sed 's/.*Ports: //' \
     | tr ',' '\n' \
@@ -41,5 +41,5 @@ grep "Ports:" "$GNMAP_FILE" \
     | cut -d'/' -f1 \
     | sort -n \
     | uniq \
-    | paste -sd, -
+    | awk 'BEGIN{ORS=""; first=1} {if (first) {printf "%s", $1; first=0} else {printf ",%s", $1}} END{print ""}'
 
